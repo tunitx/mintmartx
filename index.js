@@ -1,12 +1,12 @@
 const express = require("express");
 const app = express();
-const mongoose = require("mongoose");
-const path = require("path");
-const axios = require("axios");
-const dotenv = require("dotenv").config();
-const ejs_mate = require("ejs-mate");
-const methodOverride = require("method-override");
-const cookieParser = require("cookie-parser");
+// const mongoose = require("mongoose");
+// const path = require("path");
+// const axios = require("axios");
+// const dotenv = require("dotenv").config();
+// const ejs_mate = require("ejs-mate");
+// const methodOverride = require("method-override");
+// const cookieParser = require("cookie-parser");
 
 const port = process.env.PORT || 3000;
 
@@ -28,3 +28,4 @@ res.render('index.ejs');
 app.listen(3000, () => {
   console.log('Server is running on port : 3000');
 });
+//test comment for commit 
