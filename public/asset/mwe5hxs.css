@@ -1,0 +1,50 @@
+﻿/*
+ * The Typekit service used to deliver this font or fonts for use on websites
+ * is provided by Adobe and is subject to these Terms of Use
+ * http://www.adobe.com/products/eulas/tou_typekit. For font license
+ * information, see the list below.
+ *
+ * roc-grotesk:
+ *   - http://typekit.com/eulas/00000000000000007735b7c0
+ *   - http://typekit.com/eulas/00000000000000007735b7c3
+ *   - http://typekit.com/eulas/00000000000000007735b7cc
+ *   - http://typekit.com/eulas/00000000000000007735b7d0
+ *   - http://typekit.com/eulas/00000000000000007735b7d4
+ *
+ * © 2009-2022 Adobe Systems Incorporated. All Rights Reserved.
+ */
+/*{"last_published":"2021-06-04 13:43:03 UTC"}*/
+
+@import url("p.css");
+
+@font-face {
+font-family:"roc-grotesk";
+src:url("af/c4fccd/00000000000000007735b7c0/30/l") format("woff2"),url("af/c4fccd/00000000000000007735b7c0/30/d") format("woff"),url("af/c4fccd/00000000000000007735b7c0/30/a") format("opentype");
+font-display:auto;font-style:normal;font-weight:600;font-stretch:normal;
+}
+
+@font-face {
+font-family:"roc-grotesk";
+src:url("af/975d46/00000000000000007735b7c3/30/l") format("woff2"),url("af/975d46/00000000000000007735b7c3/30/d") format("woff"),url("af/975d46/00000000000000007735b7c3/30/a") format("opentype");
+font-display:auto;font-style:normal;font-weight:700;font-stretch:normal;
+}
+
+@font-face {
+font-family:"roc-grotesk";
+src:url("af/9ef671/00000000000000007735b7cc/30/l") format("woff2"),url("af/9ef671/00000000000000007735b7cc/30/d") format("woff"),url("af/9ef671/00000000000000007735b7cc/30/a") format("opentype");
+font-display:auto;font-style:normal;font-weight:300;font-stretch:normal;
+}
+
+@font-face {
+font-family:"roc-grotesk";
+src:url("af/5eb19c/00000000000000007735b7d0/30/l") format("woff2"),url("af/5eb19c/00000000000000007735b7d0/30/d") format("woff"),url("af/5eb19c/00000000000000007735b7d0/30/a") format("opentype");
+font-display:auto;font-style:normal;font-weight:500;font-stretch:normal;
+}
+
+@font-face {
+font-family:"roc-grotesk";
+src:url("af/97dd77/00000000000000007735b7d4/30/l") format("woff2"),url("af/97dd77/00000000000000007735b7d4/30/d") format("woff"),url("af/97dd77/00000000000000007735b7d4/30/a") format("opentype");
+font-display:auto;font-style:normal;font-weight:400;font-stretch:normal;
+}
+
+.tk-roc-grotesk { font-family: "roc-grotesk",sans-serif; }
