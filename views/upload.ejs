@@ -1,0 +1,20 @@
+<!-- views/index.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Photo Upload</title>
+</head>
+<body>
+  <h1>Upload a Photo</h1>
+  <form action="/upload" method="post" enctype="multipart/form-data">
+    <label for="name">Name:</label>
+    <input type="text" name="name" required />
+    <br />
+    <label for="description">Description:</label>
+    <textarea name="description" required></textarea>
+    <br />
+    <input type="file" name="photo" required />
+    <button type="submit">Upload & Pay $10</button>
+  </form>
+</body>
+</html>

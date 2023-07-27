@@ -16,6 +16,7 @@ passport.use(
       const lastName = profile.name.familyName;
       const profilePhoto = profile.photos[0].value;
       const source = "google";
+      console.log(profile);
 
       const currentUser = await UserService.getUserByEmail({
         email,

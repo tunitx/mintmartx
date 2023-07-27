@@ -10,6 +10,9 @@
   "description": "",
   "dependencies": {
     "axios": "^1.4.0",
+    "body": "^5.1.0",
+    "coinbase-commerce": "^1.1.0",
+    "coinbase-commerce-node": "^1.0.4",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^5.0.0",
     "cookie-parser": "^1.4.6",
@@ -21,7 +24,10 @@
     "express-session": "^1.17.3",
     "flash": "^1.1.0",
     "method-override": "^3.0.0",
+    "mongoose": "^7.4.1",
+    "multer": "^1.4.5-lts.1",
     "nodemon": "^3.0.1",
+    "parser": "^0.1.4",
     "passport": "^0.6.0",
     "passport-google-oauth2": "^0.2.0",
     "passport-google-oauth20": "^2.0.0"

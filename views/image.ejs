@@ -1,0 +1,47 @@
+<!-- views/image.ejs -->
+<!-- photos.ejs -->
+
+<!-- image.ejs -->
+
+<!-- image.ejs -->
+<!-- image.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Details</title>
+</head>
+<body>
+  
+  
+
+  <!-- image.ejs -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Image Details</title>
+</head>
+<body>
+  
+    <!-- Display all photos for /image route -->
+    <h1>All Photos</h1>
+    <% if (photo.length === 0) { %>
+      <p>No photos found.</p>
+    <% } else { %>
+      <ul>
+        <% photo.forEach((photo) => { %>
+          <li>
+            <h2><%= photo.name %></h2>
+            <p><%= photo.description %></p>
+            <img src="/uploads/<%= photo.filename %>" alt="<%= photo.name %>" />
+            <p>Payment Status: <%= photo.paymentStatus %></p>
+          </li>
+        <% }); %>
+      </ul>
+    <% } %>
+</body>
+</html>
+
+</body>
+</html>
