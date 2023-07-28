@@ -17,11 +17,10 @@ const multer = require('multer');
 const coinbase = require('coinbase-commerce-node');
 const port =  3000;
 const Photo = require('./model');
-app.use(bodyParser.json());
 
+app.use(bodyParser.json());
 app.set("view engine", "ejs");
 app.engine("ejs", ejs_mate);
-
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static("public"));
 app.use(flash());
@@ -59,7 +58,7 @@ function verifyWebhookSignature(headers, rawBody, secret) {
   }
 
   const hmac = crypto.createHmac('sha256', secret);
-  const calculatedSignature = 'sha256=' + hmac.update(rawBody).digest('hex');
+  const calculatedSignature =  hmac.update(rawBody).digest('hex');
   // ** log this calculated signature and put it into the header of webhook signature while making mock webhook requests from postman to server
   console.log(calculatedSignature);
   return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(calculatedSignature));
@@ -93,8 +92,8 @@ app.post('/webhook', async (req, res) => {
     //* check if the payment has been confirmed and then save the metadata into your database
     if (type === 'charge:confirmed') {
       const newPhoto = new Photo({
-        // name: photoName,
-        name :photoName.replace(/"/g, ''),
+        name: photoName,
+        name : photoName.replace(/"/g, ''),
         description: photoDescription.replace(/"/g, ''),
         filename: photoId.replace(/"/g, ''),
         paymentStatus: 'confirmed',
@@ -192,8 +191,6 @@ const Client = coinbase.Client;
 Client.init(API_KEY);
 const Charge = coinbase.resources.Charge;
 
-
-
 // Todo : Handle photo upload and payment
 
 //?? Multer disk storage initialization
@@ -237,6 +234,7 @@ app.post('/upload', upload, async (req, res) => {
   
  //?? now the charge gets created through this function and we get a response which has a hosted url to make payments.
  //todo : redirect to the hosted_url to make payments and log the response
+
   Charge.create(chargeData, async (err, response) => {
 
     try {
