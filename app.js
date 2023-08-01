@@ -93,13 +93,15 @@ app.post("/webhook", async (req, res) => {
 
     var photoId = JSON.stringify(data.metadata.photo_id);
     const photoName = JSON.stringify(data.metadata.photo_name);
-    const photoDescription = JSON.stringify(data.metadata.photo_description);
+    const photoPrice= JSON.stringify(data.metadata.photo_price);
+    const photoOwner= JSON.stringify(data.metadata.photo_owner);
 
     //* check if the payment has been confirmed and then save the metadata into your database
     if (type === "charge:confirmed") {
       const newPhoto = new Photo({
         name: photoName.replace(/"/g, ""),
-        description: photoDescription.replace(/"/g, ""),
+        price: photoPrice.replace(/"/g, ""),
+        owner: photoOwner.replace(/"/g, ""), 
         filename: photoId.replace(/"/g, ""),
         paymentStatus: "confirmed",
       });
@@ -180,11 +182,15 @@ app.get("/upload", async (req, res, next) => {
 
 // ** Root route for mintMart
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
+  const photo = await Photo.find({});
   if (!req.user) {
     return res.redirect("/auth/google");
   }
-  res.render("index.ejs");
+  
+  //**  we render the photo array to the /image route
+  res.render("index", { photo: photo });
+  
 });
 //? for logging out te session from a google account
 app.get("/auth/logout", (req, res) => {
@@ -224,7 +230,7 @@ const upload = multer({ storage: storage }).single("photo");
 //Todo : this is the upload route which will handle the upload requests and save the uploaded file for later processing in /webhook
 app.post("/upload", upload, async (req, res) => {
   // ?? Get the user-provided name and description from the form
-  const { name, description } = req.body;
+  const { name, price, owner } = req.body;
 
   // ? Create a charge
   const chargeData = {
@@ -232,14 +238,15 @@ app.post("/upload", upload, async (req, res) => {
     description: "Charge for NFT Listing, ",
     pricing_type: "fixed_price",
     local_price: {
-      amount: "10.00",
+      amount: "175.00",
       currency: "USD",
     },
     //! you will need to use this metadata in the webhook 
     metadata: {
       photo_id: req.file.filename,
       photo_name: name,
-      photo_description: description,
+      photo_price : price,
+      photo_owner: owner,
     },
   };
 
@@ -248,6 +255,16 @@ app.post("/upload", upload, async (req, res) => {
   Charge.create(chargeData, async (err, response) => {
     try {
       // console.log(response);
+      // const userId = req.user.id;
+      // //?? for adding mock NFTs to the database
+      // const newPhoto = new Photo({
+      //   name : response.metadata.photo_name,
+      //   price : response.metadata.photo_price,
+      //   owner: response.metadata.photo_owner,
+      //   filename : response.metadata.photo_id,
+      // });
+      // // console.log(newPhoto);
+      // await newPhoto.save();
       res.redirect(response.hosted_url);
     } catch (error) {
       console.error("Error creating charge:", error.message);

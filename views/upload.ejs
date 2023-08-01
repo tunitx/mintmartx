@@ -1,20 +1,317 @@
 <!-- views/index.ejs -->
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Photo Upload</title>
+  <title>NFT Upload</title>
 </head>
+
 <body>
-  <h1>Upload a Photo</h1>
-  <form action="/upload" method="post" enctype="multipart/form-data">
+
+  <style>
+    body {
+      font-family: sans-serif;
+      /* background-color: rgb(4, 7, 27); */
+      background-image: linear-gradient(to right, rgb(4, 7, 27) 50%,   rgb(78, 126, 151));
+
+    }
+
+    input::file-selector-button {
+      font-weight: bold;
+      color: rgb(135, 206, 250);
+      padding: 0.5em;
+      background-color: rgb(4, 7, 27);
+      /* border: thin solid grey; */
+      border-radius: 20px;
+    }
+
+    .login-box {
+      /* margin-top: 10rem; */
+      /* position: absolute;
+ 
+  left: 50%; */
+      height: 70vh;
+      position: relative;
+      top: 10%;
+      width: 40vw;
+      padding: 40px;
+      background: rgba(24, 20, 20, 0.987);
+      box-sizing: border-box;
+      box-shadow: 0 15px 25px rgba(0, 0, 0, .6);
+      border-radius: 50px;
+    }
+
+    .login-box .user-box {
+      position: relative;
+    }
+
+    .login-box .user-box input {
+      width: 100%;
+      padding: 10px 0;
+      font-size: 16px;
+      color: rgb(4, 7, 27);
+      margin-bottom: 30px;
+      border: none;
+      border-bottom: 1px solid rgb(4, 7, 27);
+      outline: none;
+      background: transparent;
+    }
+
+    .login-box .user-box label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: 10px 0;
+      font-size: 18px;
+      color: rgb(4, 7, 27);
+      pointer-events: none;
+      transition: .5s;
+    }
+
+    .login-box .user-box input:focus~label,
+    .login-box .user-box input:valid~label {
+      top: -20px;
+      left: 0;
+      color: rgb(4, 7, 27);
+      font-size: 1rem;
+    }
+
+    .login-box form button {
+      position: relative;
+      display: inline-block;
+      padding: 10px 20px;
+      color: rgb(4, 7, 27);
+      font-size: 1rem;
+      text-decoration: none;
+      text-transform: uppercase;
+      overflow: hidden;
+      transition: .5s;
+      margin-top: 40px;
+      letter-spacing: 4px
+    }
+
+    .login-box button:hover {
+      background: rgb(4, 7, 27);
+      ;
+      color: rgb(4, 7, 27);
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgb(4, 7, 27),
+        0 0 10px rgb(4, 7, 27),
+        0 0 20px rgb(4, 7, 27),
+        0 0 20px rgb(4, 7, 27);
+    }
+
+    .login-box button span {
+      position: absolute;
+      display: block;
+    }
+
+
+    @keyframes btn-anim1 {
+      0% {
+        left: -100%;
+      }
+
+      50%,
+      100% {
+        left: 100%;
+      }
+    }
+
+    .login-box button span:nth-child(1) {
+      bottom: 2px;
+      left: -100%;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, rgb(4, 7, 27));
+      animation: btn-anim1 2s linear infinite;
+    }
+
+    nav {
+      /* background-color: ; */
+      color: #fff;
+      font-family: Arial, sans-serif;
+      height: auto;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      margin-top: 0.3rem;
+    }
+
+    .nav-logo h1 {
+      margin: 0;
+      color: #00fefe;
+      font-size: 2.5rem;
+      padding-left: 2.7rem;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      font-size: 1.2rem;
+      margin-top: 1.2rem;
+      padding-right: 5rem;
+    }
+
+    .nav-links li {
+      margin-right: 2.5rem;
+    }
+
+    .nav-links li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 0.5rem;
+    }
+
+    .nav-links li a.active {
+      /* background-color: #666; */
+      border-bottom: white solid 2px;
+    }
+
+    .nav-btn {
+      display: none;
+    }
+
+    @media screen and (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .nav-btn {
+        display: block;
+      }
+
+
+      .nav-links.active {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        background-color: #333;
+        width: 100%;
+      }
+
+      .nav-links li {
+        margin: 1rem;
+      }
+
+      .nav-links li a {
+        padding: 1rem;
+        text-align: center;
+      }
+
+      .nav-links li a.active {
+        background-color: transparent;
+      }
+    }
+
+    .header {
+      /* width: 100%; */
+      height: 20vh;
+      color: white;
+      font-family: cursive;
+      /* text-align: center; */
+
+    }
+
+    .header h1 {
+      margin-top: 2%;
+      font-size: 3rem;
+      position: relative;
+      top: 15rem;
+    }
+
+    .section-1 {
+      display: flex;
+      height: 100vh;
+      width: 100%;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-around;
+    }
+  </style>
+
+
+
+  <div id="navbar">
+    <nav>
+      <div class="nav-container">
+        <div class="nav-logo">
+          <h1>MintMart NFT</h1>
+        </div>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/image">Our NFTs</a></li>
+          <li><a href="/auth/logout">Log Out</a></li>
+          <li><a href="/upload" class="active" class="register-nft">Register NFT</a></li>
+        </ul>
+        <div class="nav-btn">
+          <div class="burger"></div>
+        </div>
+      </div>
+    </nav>
+
+  </div>
+
+  <div class="section-1">
+    <div class="header">
+
+      <h1 class="header-text"> Upload Your NFT</h1>
+    </div>
+    <div style="background-color:lightskyblue" class="login-box">
+
+      <form action="/upload" method="post" enctype="multipart/form-data">
+        <div class="user-box">
+          <input type="text" name="name" required="" style="background-color: lightblu;">
+          <label style="color: rgb(4,7,27); font-weight: bold;">Name of NFT</label>
+        </div>
+        <div class="user-box">
+          <input type="text" name="price" required="">
+          <label style="color: rgb(4,7,27); font-weight: bold;">Price (In Crypto)</label>
+        </div>
+        <div class="user-box">
+          <input type="text" name="owner" required="">
+          <label style="color: rgb(4,7,27); font-weight: bold;">Owner</label>
+        </div>
+
+        <div class="user-box">
+          <label style="position: relative; bottom: 10px;color: rgb(4,7,27); font-weight: bold;">NFT</label>
+          <input type="file" name="photo" required="">
+
+
+        </div>
+        <div style="align-items: center;">
+          <button style="background-color: RGB(4 7 27); border: none; margin-left: 1.8rem; color: rgb(135,206,250); border-radius: 20px;"
+            type="submit">
+            Upload & Pay 
+          </button>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+
+  <!-- <form action="/upload" method="post" enctype="multipart/form-data">
     <label for="name">Name:</label>
     <input type="text" name="name" required />
     <br />
-    <label for="description">Description:</label>
-    <textarea name="description" required></textarea>
+    <label for="price">Price:</label>
+    <input type="text" name="price" required />
     <br />
+    <label for="owner">Owner:</label>
+    <input type="text" name="owner" required />
+    <br />
+
+  
     <input type="file" name="photo" required />
     <button type="submit">Upload & Pay $10</button>
-  </form>
+  </form> -->
 </body>
+
 </html>

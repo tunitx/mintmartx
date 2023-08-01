@@ -4,7 +4,8 @@ const mongoose = require('mongoose');
 // Create a schema for the photo model
 const photoSchema = new mongoose.Schema({
   name: String,
-  description: String,
+  price: String,
+  owner: String,
   filename: String,
   paymentStatus: String,
 });

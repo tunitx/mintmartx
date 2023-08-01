@@ -1,47 +1,281 @@
-<!-- views/image.ejs -->
-<!-- photos.ejs -->
-
-<!-- image.ejs -->
-
-<!-- image.ejs -->
 <!-- image.ejs -->
 
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Image Details</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
 </head>
+
 <body>
-  
-  
 
-  <!-- image.ejs -->
 
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Image Details</title>
-</head>
-<body>
+  <style>
+    body::-webkit-scrollbar{
+    display: none;
+  }
+    body {
+      /* background-color: rgb(4, 7, 27); */
+      background-image: linear-gradient(to right, rgb(4, 7, 27) 50%, rgb(78, 126, 151));
+
+      /* overflow-y: hidden; Hide vertical scrollbar */
+  /* overflow-x: hidden; */
+    }
+
+    .nft-section {
+      height: auto;
+      width: 100vw;
+      /* background-color: antiquewhite; */
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+    }
+
+    .card {
+      position: relative;
+      /* width: 30%;
+      height: 50vh; */
+      height: 26rem;
+      width: 28rem;
+      margin: 1rem;
+      font-size: 25px;
+      font-weight: bold;
+      /* border-radius: 15px; */
+      cursor: pointer;
+      overflow: hidden;
+      margin-top: 1%;
+      margin-bottom: 5%;
+      border-radius: 50px;
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .details {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #fff;
+      font-family: cursive;
+      justify-content: center;
+      background-color: rgba(29, 106, 154, 0.72);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s, visibility 0.7s;
+    }
+
+    .card:hover .details {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .card {
+      -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+      transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+      border: none;
+      /* margin: 2.5%; */
+    }
+
+    .card::after {
+      /* box-shadow: 10px 10px 3px  rgb(39,59,80); */
+      content: "";
+      border-radius: 50px;
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      left: 0;
+      width: 100% !important;
+      height: 100% !important;
+      /* box-shadow: 0px 0px 15px 15px rgb(39,59,80); */
+      opacity: 0;
+      -webkit-transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+      transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+
+    }
+
+    .card:hover {
+      -webkit-transform: scale(1.10, 1.10) !important;
+      transform: scale(1.10, 1.10) !important;
+    }
+
+    .card::after {
+      opacity: 1 !important;
+
+    }
+    .header{
+      width: 100%;
+      height: 20vh;
+      color: white;
+      font-family: cursive;
+      text-align: center;
+    }
+    .header h1{
+      margin-top: 2%;
+      font-size: 4rem;
+    }
+
+
+    /* body {
+  margin: 0;
+  padding: 0;
   
-    <!-- Display all photos for /image route -->
-    <h1>All Photos</h1>
-    <% if (photo.length === 0) { %>
-      <p>No photos found.</p>
-    <% } else { %>
-      <ul>
-        <% photo.forEach((photo) => { %>
-          <li>
-            <h2><%= photo.name %></h2>
-            <p><%= photo.description %></p>
-            <img src="/uploads/<%= photo.filename %>" alt="<%= photo.name %>" />
-            <p>Payment Status: <%= photo.paymentStatus %></p>
-          </li>
-        <% }); %>
-      </ul>
-    <% } %>
+} */
+
+nav {
+  /* background-color: ; */
+  color: #fff;
+  font-family: Arial, sans-serif;
+  height: auto;
+}
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  margin-top: 0.3rem;
+}
+
+.nav-logo h1 {
+  margin: 0;
+  color: #00fefe;
+  font-size: 2.5rem;padding-left: 2.7rem;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  font-size: 1.2rem;
+  margin-top: 1.2rem;
+  padding-right: 5rem;
+}
+
+.nav-links li {
+  margin-right: 2.5rem;
+}
+
+.nav-links li a {
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem;
+}
+
+.nav-links li a.active {
+  /* background-color: #666; */
+  border-bottom: white solid 2px;
+}
+
+.nav-btn {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  .nav-btn {
+    display: block;
+  }
+
+  .nav-links.active {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    background-color: #333;
+    width: 100%;
+  }
+
+  .nav-links li {
+    margin: 1rem;
+  }
+
+  .nav-links li a {
+    padding: 1rem;
+    text-align: center;
+  }
+
+  .nav-links li a.active {
+    background-color: transparent;
+  }
+}
+
+  </style>
+
+  <div id="navbar">
+    <!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">MintMart</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+          <a class="nav-item nav-link" href="#">Features</a>
+          <a class="nav-item nav-link" href="#">Pricing</a>
+          <a class="nav-item nav-link disabled" href="#">Disabled</a>
+        </div>
+      </div>
+    </nav> -->
+    <nav>
+      <div class="nav-container">
+        <div class="nav-logo">
+          <h1>MintMart NFT</h1>
+        </div>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/image" class="active">Our NFTs</a></li>
+          <li><a href="/auth/logout">Log Out</a></li>
+          <li><a href="/upload" class="register-nft">Register NFT</a></li>
+        </ul>
+        <div class="nav-btn">
+          <div class="burger"></div>
+        </div>
+      </div>
+    </nav>
+
+  </div>
+
+  <div class="header">
+
+    <h1 class="header-text"> Our NFT's</h1>
+  </div>
+  <div class="nft-section">
+    <!-- Loop through each photo in the 'photo' array -->
+    <% photo.forEach((item)=> { %>
+      <div class="card">
+        <img class="nft" src="/uploads/<%= item.filename %>" alt="<%= item.name %>">
+        <!-- Show the name and other details on hover -->
+        <div class="details">
+          <p>
+            <%= item.name %>
+          </p>
+          <p>Price <%= item.price %>
+          </p>
+          <p>Owned by <%= item.owner %>
+          </p>
+        </div>
+      </div>
+      <% }) %>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+    crossorigin="anonymous"></script>
+
 </body>
-</html>
 
-</body>
 </html>
