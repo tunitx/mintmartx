@@ -35,7 +35,7 @@ const mongoSessionStore = require("connect-mongo");
 //? creating mongo db named mintMart
 async function connectToDatabase() {
   try {
-    await mongoose.connect("mongodb://localhost:27017/mintMart", {
+    await mongoose.connect("mongodb+srv://tunitx:<FnPe7JctlVTlhJOT>@mintmart.wjhqljx.mongodb.net/?retryWrites=true&w=majority", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -140,7 +140,7 @@ require("./src/config/passport");
 
 const sessionStore = mongoSessionStore.create({
   collectionName: "sessions",
-  mongoUrl: "mongodb://localhost:27017/mintMart",
+  mongoUrl: "mongodb+srv://tunitx:<FnPe7JctlVTlhJOT>@mintmart.wjhqljx.mongodb.net/?retryWrites=true&w=majority",
 });
 app.use(
   session({
