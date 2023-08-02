@@ -210,11 +210,11 @@ app.get("/upload", async (req, res, next) => {
 // ** Root route for mintMart
 
 app.get("/", async (req, res) => {
-  const photo = await Photo.find({});
+  
   if (!req.user) {
     return res.redirect("/auth/google");
   }
-  
+  const photo = await Photo.find({});
   //**  we render the photo array to the /image route
   res.render("index", { photo: photo });
   
