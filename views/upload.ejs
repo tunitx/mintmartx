@@ -1,8 +1,11 @@
 <!-- views/index.ejs -->
+
 <!DOCTYPE html>
 <html>
 
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>NFT Upload</title>
 </head>
 
@@ -105,7 +108,11 @@
       position: absolute;
       display: block;
     }
-
+    body {
+        overflow-x: hidden !important;
+        max-width: 100% !important;
+        overflow-x: hidden !important;
+    }
 
     @keyframes btn-anim1 {
       0% {
@@ -175,8 +182,55 @@
     .nav-btn {
       display: none;
     }
+    .burger-menu {
+  display: none;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 20px;
+}
 
-    @media screen and (max-width: 768px) {
+.bar {
+  width: 30px;
+  height: 3px;
+  background-color: #fff;
+}
+#footer-devchef{
+    width: 100%;
+    height: 17rem;
+    background-image: linear-gradient(to right,rgb(21,27,61) 30% , rgb(78, 126, 151));
+    /* background-color: rgb(14,17,26); */
+    display: flex;
+    flex-direction: row;
+    padding-top: 4%;
+    border-top-left-radius: 200px;
+    justify-content:space-around;
+}
+
+    @media screen and (max-width: 992px) {
+      .copyright{
+        position: relative;
+    top: -160px;
+    left: 120px;
+      }
+      #footer-devchef{
+        height: 600px;
+        border-top-left-radius: 100px;
+        margin-top: -30%;
+        flex-direction: column;
+        justify-content:space-evenly;
+      }
+      #devchef-header{
+        left: 39px;
+    position: relative;
+    top: -50px;
+    font-size: 0.5rem !important;
+      }
+      #social-icons{
+        position: relative;
+    top: -132px;
+    left: 35px;
+      }
       .nav-links {
         display: none;
       }
@@ -192,7 +246,7 @@
         position: absolute;
         top: 70px;
         left: 0;
-        background-color: #333;
+        background-color: rgb(4,7,27);
         width: 100%;
       }
 
@@ -208,10 +262,84 @@
       .nav-links li a.active {
         background-color: transparent;
       }
-    }
+      .nav-links {
+    display: none;
+  }
 
+  .burger-menu {
+    display: flex;
+  }
+
+  .burger-menu.active {
+
+    background-color:rgb(4,7,27);
+  }
+
+  .nav-links.active {
+    display: flex;
+    flex-direction: column;
+    
+  }
+  .nav-links {
+    display: none;
+    transition: transform 0.3s ease; /* Added transition */
+    transform: translateY(-100%);
+    background-color: #333;
+    color: #00fefe;
+    font-family: sans-serif;
+    position: absolute;
+    top: 80px; /* Adjust as needed */
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  .nav-links.active {
+    display: flex;
+    font-size: 1rem;
+    position: absolute;
+    top: 50px;
+  z-index: 1;
+    flex-direction: column;
+    transform: translateY(0);
+  }
+
+  .burger-menu.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(-45deg);
+  }
+
+  .burger-menu.active .bar:nth-child(2) {
+    opacity: 0;
+  }
+
+  .burger-menu.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(45deg);
+  }
+  .section-1{
+    display: block !important;
+  }
+  .header h1 {
+    margin-top: 2%  !important;
+    font-size: 2rem  !important;
+    position: relative  !important;
+    top: 2rem  !important;
+    left: 3rem  !important;
+}
+.login-box{
+  top: 0px !important;
+  width: 90% !important;
+  height: auto;
+  left: 20px;
+}
+.nav-logo h1{
+  padding-left: 0px;
+}
+.header{
+  height: 15vh !important;
+}
+    }
     .header {
-      /* width: 100%; */
       height: 20vh;
       color: white;
       font-family: cursive;
@@ -234,9 +362,12 @@
       flex-wrap: wrap;
       justify-content: space-around;
     }
+   
+    
   </style>
 
-
+  <div class="section-1">
+   
 
   <div id="navbar">
     <nav>
@@ -246,17 +377,28 @@
         </div>
         <ul class="nav-links">
           <li><a href="/">Home</a></li>
-          <li><a href="/image">Our NFTs</a></li>
+          <li><a href="/nft">Our NFTs</a></li>
           <li><a href="/auth/logout">Log Out</a></li>
           <li><a href="/upload" class="active" class="register-nft">Register NFT</a></li>
         </ul>
-        <div class="nav-btn">
-          <div class="burger"></div>
+        <div class="burger-menu">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
         </div>
       </div>
     </nav>
 
   </div>
+  <script>
+    const burgerMenu = document.querySelector('.burger-menu');
+const navbarLinks = document.querySelector('.nav-links');
+
+burgerMenu.addEventListener('click', () => {
+  navbarLinks.classList.toggle('active');
+});
+
+  </script>
 
   <div class="section-1">
     <div class="header">
@@ -296,6 +438,26 @@
     </div>
 
   </div>
+  <section id="footer-devchef">
+    <div id="devchef-header">
+        <h1 style="color: #00fefe; font-family: sans-serif; font-size: 2rem;margin-bottom: 6px  ">MintMart NFT</h1>
+        <p style="color: rgb(156,191,16); font-family: sans-serif; font-size: 1.2rem; display: inline;"> Your Ultimate  </p>
+        <p  style="color: rgb(156,191,16); font-family: sans-serif; font-size: 1.2rem; display: inline; font-weight: bolder;"> NFT Destination</p>
+    </div>
+    <div id="social-icons">
+        <span> 
+            <h1  style="color: #00fefe; font-family: sans-serif; font-size: 1.5rem; margin-bottom: 6px ">Contact us At</h1>
+            <p style="color: rgb(156,191,16);  font-family:sans-serif; font-size: 1.2rem; display: inline; font-weight: bold; ">mintmartofficial@gmail.com</p>
+        </span>
+        <span> 
+         <h1 style="color: #00fefe; font-family: sans-serif; font-size: 1.5rem; margin-top: 5%; margin-bottom: 6px"> Or try reaching at : </h1>
+         <p style="color: rgb(156,191,16);  font-family:sans-serif; font-size: 1.2rem; display: inline; font-weight: bold; "> +1
+          (470)
+          575-0767</p>
+        </span>
+    </div>
+  <span class="copyright" style="  color:rgb(156,191,16) ;" id="copyright-span"> <h2 style="font-size: 1em;"> Copyright @MintMart NFT 2023.</h2></span>
+</section>
 
   <!-- <form action="/upload" method="post" enctype="multipart/form-data">
     <label for="name">Name:</label>

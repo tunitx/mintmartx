@@ -277,11 +277,11 @@ app.post("/upload", upload, async (req, res) => {
 //Todo : create a dynamic /image route to handle the rendered images in the database with their name and description
 // !! just to make you remember for later that here Photo is the model for your 'photos' collection
 
-app.get("/image", async (req, res) => {
+app.get("/nft", async (req, res) => {
   //** Here we are getting an array of JSon objects back in which each object is a single 'photo' object which has a name and description
   const photo = await Photo.find({});
   //**  we render the photo array to the /image route
-  res.render("image", { photo: photo });
+  res.render("nft", { photo: photo });
 });
 
 //?? will figure out later if we need to implement this route
