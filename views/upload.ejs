@@ -362,10 +362,151 @@
       flex-wrap: wrap;
       justify-content: space-around;
     }
-   
+    .loader-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgb(4, 7, 27);
+      z-index: 9999;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+      /* Add the transition for smooth opacity change */
+    }
+
+    .spinner {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+    }
+
+    .spinner div {
+      position: absolute;
+      width: 50%;
+      height: 150%;
+      background: rgb(0, 249, 249);
+      transform: rotate(calc(var(--rotation) * 1deg)) translate(0, calc(var(--translation) * 1%));
+      animation: spinner-fzua35 1s calc(var(--delay) * 1s) infinite ease;
+    }
+
+    .spinner div:nth-child(1) {
+      --delay: 0.1;
+      --rotation: 36;
+      --translation: 150;
+    }
+
+    .spinner div:nth-child(2) {
+      --delay: 0.2;
+      --rotation: 72;
+      --translation: 150;
+    }
+
+    .spinner div:nth-child(3) {
+      --delay: 0.3;
+      --rotation: 108;
+      --translation: 150;
+    }
+
+    .spinner div:nth-child(4) {
+      --delay: 0.4;
+      --rotation: 144;
+      --translation: 150;
+    }
+
+    .spinner div:nth-child(5) {
+      --delay: 0.5;
+      --rotation: 180;
+      --translation: 150;
+    }
+
+    .spinner div:nth-child(6) {
+      --delay: 0.6;
+      --rotation: 216;
+      --translation: 150;
+    }
+
+    .spinner div:nth-child(7) {
+      --delay: 0.7;
+      --rotation: 252;
+      --translation: 150;
+    }
+
+    .spinner div:nth-child(8) {
+      --delay: 0.8;
+      --rotation: 288;
+      --translation: 150;
+    }
+
+    .spinner div:nth-child(9) {
+      --delay: 0.9;
+      --rotation: 324;
+      --translation: 150;
+    }
+
+    .spinner div:nth-child(10) {
+      --delay: 1;
+      --rotation: 360;
+      --translation: 150;
+    }
+
+    @keyframes spinner-fzua35 {
+
+      0%,
+      10%,
+      20%,
+      30%,
+      50%,
+      60%,
+      70%,
+      80%,
+      90%,
+      100% {
+        transform: rotate(calc(var(--rotation) * 1deg)) translate(0, calc(var(--translation) * 1%));
+      }
+
+      50% {
+        transform: rotate(calc(var(--rotation) * 1deg)) translate(0, calc(var(--translation) * 1.5%));
+      }
+    }
     
   </style>
+<div class="loader-container">
+  <div class="spinner">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+<script>
 
+  // JavaScript to hide the loader after page load
+  document.onreadystatechange = function () {
+    var loader = document.querySelector('.loader-container');
+
+    if (document.readyState !== 'complete') {
+      loader.style.opacity = 1; // Show the loader while the page is loading
+    } else {
+      // Hide the loader with a delay for a smooth fade-out effect
+      setTimeout(function () {
+        loader.style.opacity = 0;
+        setTimeout(function () {
+          loader.style.display = 'none'; // After fading out, hide the loader completely
+        }, 500); // Match the transition duration (0.5s in this case)
+      }, 1000); // Delay for 1 second (you can adjust this value as needed)
+    }
+  };
+</script>
   <div class="section-1">
    
 
