@@ -281,17 +281,17 @@ app.post("/upload", upload, async (req, res) => {
   //todo : redirect to the hosted_url to make payments and log the response
   Charge.create(chargeData, async (err, response) => {
     try {
-      // console.log(response);
-      // const userId = req.user.id;
-      // //?? for adding mock NFTs to the database
-      // const newPhoto = new Photo({
-      //   name : response.metadata.photo_name,
-      //   price : response.metadata.photo_price,
-      //   owner: response.metadata.photo_owner,
-      //   filename : response.metadata.photo_id,
-      // });
-      // // console.log(newPhoto);
-      // await newPhoto.save();
+      console.log(response);
+      const userId = req.user.id;
+      //?? for adding mock NFTs to the database
+      const newPhoto = new Photo({
+        name : response.metadata.photo_name,
+        price : response.metadata.photo_price,
+        owner: response.metadata.photo_owner,
+        filename : response.metadata.photo_id,
+      });
+      // console.log(newPhoto);
+      await newPhoto.save();
       res.redirect(response.hosted_url);
     } catch (error) {
       console.error("Error creating charge:", error.message);
