@@ -149,7 +149,16 @@ app.post("/webhook", async (req, res) => {
     else if (type === "charge:failed" || type === "charge:expired") {
       // console.log("error block checking");
      var public_id = JSON.stringify(data.metadata.public_id);
-    public_id =  public_id.replace(/"/g, "")
+     if(public_id){
+      public_id =  public_id.replace(/"/g, "")
+      console.log(public_id);
+      const result = await cloudinary.uploader.destroy(public_id);
+      console.log(result.result);
+     }
+     else{
+      console.log("public_id is undefined");
+     }
+    
       // const imagePath = path.join(__dirname, "public", "uploads", photoId);
       // fs.unlink(imagePath, (err) => {
       //   if (err) {
@@ -159,7 +168,7 @@ app.post("/webhook", async (req, res) => {
       //   }
       // });
       // photoId = JSON.stringify(data.metadata.photo_id);
-      console.log(public_id);
+      
       // cloudinary.uploader.destroy(photoId, (error, result) => {
       //   if (error) {
       //     console.error('Error deleting the image from cloudinary:', error);
@@ -167,8 +176,7 @@ app.post("/webhook", async (req, res) => {
       //     console.log('Image deleted from cloudinary:', result);
       //   }
       // });
-      const result = await cloudinary.uploader.destroy(public_id);
-      console.log(result.result);
+      
     }
     // ** Respond with a success status
     res.status(200).send("Webhook received and processed successfully.");
