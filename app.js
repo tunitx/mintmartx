@@ -17,6 +17,15 @@ const multer = require("multer");
 const coinbase = require("coinbase-commerce-node");
 const port = 3000;
 const Photo = require("./model");
+const cloudinary = require('cloudinary').v2;
+
+// Configure Cloudinary with your credentials
+cloudinary.config({
+  cloud_name: 'dvrko0bzr',
+  api_key: '188551638249943',
+  api_secret: 'aLZPOLQJ0LrahpXo6QY8tdYl7Sc',
+  secure: true,
+});
 
 app.use(bodyParser.json());
 app.set("view engine", "ejs");
@@ -77,7 +86,6 @@ const uri = "mongodb+srv://tunitx:FnPe7JctlVTlhJOT@mintmart.wjhqljx.mongodb.net/
 
 function verifyWebhookSignature(headers, rawBody, secret) {
   const signature = headers["x-cc-webhook-signature"];
-
   if (!signature) {
     throw new Error("Webhook signature missing in request headers.");
   }
@@ -85,7 +93,7 @@ function verifyWebhookSignature(headers, rawBody, secret) {
   const hmac = crypto.createHmac("sha256", secret);
   const calculatedSignature = hmac.update(rawBody).digest("hex");
   // ** log this calculated signature and put it into the header of webhook signature while making mock webhook requests from postman to server
-  // console.log(calculatedSignature);
+  console.log(calculatedSignature);
   return crypto.timingSafeEqual(
     Buffer.from(signature),
     Buffer.from(calculatedSignature)
@@ -96,7 +104,7 @@ function verifyWebhookSignature(headers, rawBody, secret) {
 
 app.post("/webhook", async (req, res) => {
   try {
-    // console.log(req.body);
+    console.log(req.body);
     // console.log(req.headers);
     const headers = req.headers;
     const rawBody = JSON.stringify(req.body);
@@ -132,7 +140,7 @@ app.post("/webhook", async (req, res) => {
         filename: photoId.replace(/"/g, ""),
         paymentStatus: "confirmed",
       });
-      // console.log(newPhoto);
+      console.log(newPhoto);
       await newPhoto.save();
     }
 
@@ -140,15 +148,27 @@ app.post("/webhook", async (req, res) => {
     //* if the payment is not confirmed then make sure that the photo that you added in /upload route gets removed from the /public/uploads
     else if (type === "charge:failed" || type === "charge:expired") {
       // console.log("error block checking");
-      photoId = photoId.replace(/"/g, "");
-      const imagePath = path.join(__dirname, "public", "uploads", photoId);
-      fs.unlink(imagePath, (err) => {
-        if (err) {
-          console.error("Error deleting the image:", err);
-        } else {
-          console.log("Image deleted:", photoId);
-        }
-      });
+     var public_id = JSON.stringify(data.metadata.public_id);
+    public_id =  public_id.replace(/"/g, "")
+      // const imagePath = path.join(__dirname, "public", "uploads", photoId);
+      // fs.unlink(imagePath, (err) => {
+      //   if (err) {
+      //     console.error("Error deleting the image:", err);
+      //   } else {
+      //     console.log("Image deleted:", photoId);
+      //   }
+      // });
+      // photoId = JSON.stringify(data.metadata.photo_id);
+      console.log(public_id);
+      // cloudinary.uploader.destroy(photoId, (error, result) => {
+      //   if (error) {
+      //     console.error('Error deleting the image from cloudinary:', error);
+      //   } else {
+      //     console.log('Image deleted from cloudinary:', result);
+      //   }
+      // });
+      const result = await cloudinary.uploader.destroy(public_id);
+      console.log(result.result);
     }
     // ** Respond with a success status
     res.status(200).send("Webhook received and processed successfully.");
@@ -253,10 +273,14 @@ const storage = multer.diskStorage({
 //! instantiating the storage object
 
 const upload = multer({ storage: storage }).single("photo");
+//!discarding multer storage as now im using cloudinary
 
 //Todo : this is the upload route which will handle the upload requests and save the uploaded file for later processing in /webhook
-app.post("/upload", upload, async (req, res) => {
+app.post("/upload", upload,  async (req, res) => {
   // ?? Get the user-provided name and description from the form
+  const result = await cloudinary.uploader.upload(req.file.path, {
+    folder: 'nfts', // Set the folder name
+  });
   const { name, price, owner } = req.body;
 
   // ? Create a charge
@@ -270,10 +294,11 @@ app.post("/upload", upload, async (req, res) => {
     },
     //! you will need to use this metadata in the webhook 
     metadata: {
-      photo_id: req.file.filename,
+      photo_id:  result.secure_url,
       photo_name: name,
       photo_price : price,
       photo_owner: owner,
+      public_id: result.public_id,
     },
   };
 
@@ -281,9 +306,8 @@ app.post("/upload", upload, async (req, res) => {
   //todo : redirect to the hosted_url to make payments and log the response
   Charge.create(chargeData, async (err, response) => {
     try {
-      // console.log(response);
-      // const userId = req.user.id;
-      // //?? for adding mock NFTs to the database
+      console.log(response);
+      // ?? for adding mock NFTs to the database
       // const newPhoto = new Photo({
       //   name : response.metadata.photo_name,
       //   price : response.metadata.photo_price,

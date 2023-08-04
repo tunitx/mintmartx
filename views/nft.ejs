@@ -553,7 +553,7 @@
     <!-- Loop through each photo in the 'photo' array -->
     <% photo.forEach((item)=> { %>
       <div class="card">
-        <img class="nft" src="/uploads/<%= item.filename %>" alt="<%= item.name %>">
+        <img class="nft" src="<%= item.filename %>" alt="<%= item.name %>">
         <!-- Show the name and other details on hover -->
         <div class="details">
           <p>
