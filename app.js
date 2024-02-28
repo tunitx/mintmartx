@@ -188,47 +188,47 @@ app.post("/webhook", async (req, res) => {
 
 //!!!! requiring needed gAuth configurations from config folder
 
-require("./src/config/google");
-require("./src/config/passport");
+// require("./src/config/google");
+// require("./src/config/passport");
 
-//? instantiating the a mongo session variable to store the session
+// //? instantiating the a mongo session variable to store the session
 
-const sessionStore = mongoSessionStore.create({
-  collectionName: "sessions",
-  mongoUrl: uri,
-});
-app.use(
-  session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true,
-    store: sessionStore,
-    cookie: {
-      httpOnly: true,
-    },
-  })
-);
+// const sessionStore = mongoSessionStore.create({
+//   collectionName: "sessions",
+//   mongoUrl: uri,
+// });
+// app.use(
+//   session({
+//     secret: process.env.SESSION_SECRET,
+//     resave: false,
+//     saveUninitialized: true,
+//     store: sessionStore,
+//     cookie: {
+//       httpOnly: true,
+//     },
+//   })
+// );
 
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(passport.initialize());
+// app.use(passport.session());
 
-app.get(
-  "/auth/google",
-  passport.authenticate("google", {
-    scope: ["profile", "email"],
-    prompt: "select_account",
-  })
-);
+// app.get(
+//   "/auth/google",
+//   passport.authenticate("google", {
+//     scope: ["profile", "email"],
+//     prompt: "select_account",
+//   })
+// );
 
-app.get(
-  "/auth/google/callback",
-  passport.authenticate("google", {
-    failureRedirect: "/",
-    successRedirect: "/",
-    failureFlash: true,
-    successFlash: "Successfully logged in!",
-  })
-);
+// app.get(
+//   "/auth/google/callback",
+//   passport.authenticate("google", {
+//     failureRedirect: "/",
+//     successRedirect: "/",
+//     failureFlash: true,
+//     successFlash: "Successfully logged in!",
+//   })
+// );
 // TODO: this route has to be used for posting the NFTs on the upload page.
 
 app.get("/upload", async (req, res, next) => {
@@ -239,9 +239,9 @@ app.get("/upload", async (req, res, next) => {
 
 app.get("/", async (req, res) => {
   
-  if (!req.user) {
-    return res.redirect("/auth/google");
-  }
+  // if (!req.user) {
+  //   return res.redirect("/auth/google");
+  // }
   const photo = await Photo.find({});
   //**  we render the photo array to the /image route
   res.render("index", { photo: photo });
@@ -297,7 +297,7 @@ app.post("/upload", upload,  async (req, res) => {
     description: "Charge for NFT Listing, ",
     pricing_type: "fixed_price",
     local_price: {
-      amount: "175.00",
+      amount: "25.00",
       currency: "USD",
     },
     //! you will need to use this metadata in the webhook 
