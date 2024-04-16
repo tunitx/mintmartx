@@ -297,7 +297,7 @@ app.post("/upload", upload,  async (req, res) => {
     description: "Charge for NFT Listing, ",
     pricing_type: "fixed_price",
     local_price: {
-      amount: "25.00",
+      amount: "50.00",
       currency: "USD",
     },
     //! you will need to use this metadata in the webhook 
